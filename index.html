@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Tayhawan | Information System</title>
+    
+    <style>
+        :root {
+            --primary-blue: #1976D2;
+            --secondary-blue: #2196F3;
+            --light-bg: #F5F9FF;
+            --sidebar-bg: #FFFFFF;
+            --text-dark: #333;
+            --accent: #E3F2FD;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        /* --- HEADER & LOGO --- */
+        .header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .logo-container img {
+            height: 60px; /* Adjust size as needed */
+            width: auto;
+            margin-right: 20px;
+            background: white; /* Optional: adds a white circle behind logo */
+            border-radius: 50%;
+            padding: 5px;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .header-text p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .main-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* --- SIDEBAR MENU --- */
+        .sidebar {
+            width: 250px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid #ddd;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h3 {
+            padding: 0 25px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .sidebar a {
+            padding: 12px 25px;
+            text-decoration: none;
+            color: #444;
+            font-weight: 500;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+
+        .sidebar a:hover {
+            background: var(--accent);
+            color: var(--primary-blue);
+        }
+
+        .sidebar a.active-link {
+            background: var(--accent);
+            color: var(--primary-blue);
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        /* --- CONTENT AREA --- */
+        .content {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- COMPONENTS --- */
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+
+        .about-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .official-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 4px solid var(--primary-blue);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .official-card strong { display: block; color: var(--primary-blue); }
+
+        h2 { color: var(--primary-blue); margin-top: 0; }
+    </style>
+
+    <script>
+        function showPage(pageId, element) {
+            // Hide all pages
+            var pages = document.getElementsByClassName("page");
+            for (var i = 0; i < pages.length; i++) {
+                pages[i].classList.remove("active");
+            }
+            // Show selected page
+            document.getElementById(pageId).classList.add("active");
+
+            // Update active menu styling
+            var links = document.querySelectorAll(".sidebar a");
+            links.forEach(link => link.classList.remove("active-link"));
+            element.classList.add("active-link");
+        }
+    </script>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="logo-container">
+            <img src="/images/Tayhawanlogo.jpg" alt="Barangay Logo">
+        </div>
+        <div class="header-text">
+            <h1>Barangay Tayhawan</h1>
+            <p>Municipality of Lezo, Province of Aklan</p>
+        </div>
+    </div>
+
+    <div class="main-container">
+
+        <div class="sidebar">
+            <h3>Navigation</h3>
+            <a onclick="showPage('home', this)" class="active-link">Home</a>
+            <a onclick="showPage('about', this)">About Us</a>
+            <a onclick="showPage('officials', this)">Barangay Officials</a>
+            <a onclick="showPage('services', this)">Services</a>
+            <a onclick="showPage('contact', this)">Contact</a>
+        </div>
+
+        <div class="content">
+
+            <div id="home" class="page active">
+                <div class="card">
+                    <h2>Welcome to Tayhawan!</h2>
+                    <p>Tayhawan is a peaceful rural community in the municipality of Lezo, Aklan. We pride ourselves on our unity, cooperation, and the preservation of our local traditions.</p>
+                    <p>Our Barangay Information System is designed to provide residents with easy access to community news, services, and official records.</p>
+                </div>
+            </div>
+
+            <div id="about" class="page">
+                <img src="tayhawan-map.png" alt="Barangay Map" class="about-img">
+                
+                <div class="card">
+                    <h2>Our History</h2>
+                    <p>The name <strong>Tayhawan</strong> originated during the Spanish colonial period. It was born from a simple misunderstanding when a local resident answered "Tay Juan" (That is Juan) to a Spanish soldier's question.</p>
+                </div>
+
+                <div class="grid">
+                    <div class="card">
+                        <h3 style="color:var(--primary-blue)">Mission</h3>
+                        <p>To educate, unite, and mobilize the people toward natural farming and entrepreneurship through collaborative effort and active participation.</p>
+                    </div>
+                    <div class="card">
+                        <h3 style="color:var(--primary-blue)">Vision</h3>
+                        <p>A premier productive farming and progressive healthy community empowered by good governance and collective decision-making.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="officials" class="page">
+    <h2>Barangay Leadership</h2>
+    
+    <div class="grid" style="margin-bottom: 30px;">
+        <div class="official-card" style="border-top-color: #d32f2f;">
+            <strong>Albane Nepomuceno</strong>
+            <span>Punong Barangay</span>
+        </div>
+    </div>
+
+    <h3 style="color: var(--primary-blue); margin-bottom: 15px;">Sangguniang Barangay Members</h3>
+    <div class="grid">
+        <div class="official-card">
+            <strong>Rosemarie Quenesio</strong>
+            <span>Kagawad</span>
+        </div>
+        <div class="official-card">
+            <strong>Jovie Oraa</strong>
+            <span>Kagawad</span>
+        </div>
+        <div class="official-card">
+            <strong>Marilyn Nepomuceno</strong>
+            <span>Kagawad</span>
+        </div>
+        <div class="official-card">
+            <strong>Gemma Galicha</strong>
+            <span>Kagawad</span>
+        </div>
+        <div class="official-card">
+            <strong>Raniel Iguin</strong>
+            <span>Kagawad</span>
+        </div>
+        <div class="official-card">
+            <strong>Erwin Galanto</strong>
+            <span>Kagawad</span>
+        </div>
+        <div class="official-card">
+            <strong>Swanie Joy Tabay</strong>
+            <span>Kagawad</span>
+        </div>
+    </div>
+
+    <h3 style="color: var(--primary-blue); margin: 30px 0 15px 0;">Appointed Officials</h3>
+    <div class="grid">
+        <div class="official-card" style="border-top-color: #757575;">
+            <strong>Melanie Francisco</strong>
+            <span>Barangay Secretary</span>
+        </div>
+        <div class="official-card" style="border-top-color: #757575;">
+            <strong>Aguirre</strong>
+            <span>Barangay Treasurer</span>
+        </div>
+    </div>
+</div>
+
+            <div id="services" class="page">
+                <h2>Our Services</h2>
+                <div class="card">
+                    <ul>
+                        <li><strong>Barangay Clearance</strong> - Issued for various legal and employment purposes.</li>
+                        <li><strong>Certificate of Residency</strong> - Proof of address for local residents.</li>
+                        <li><strong>Health Assistance</strong> - Access to the Barangay Health Center services.</li>
+                        <li><strong>Community Programs</strong> - Natural farming workshops and youth activities.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="contact" class="page">
+                <div class="card">
+                    <h2>Contact Information</h2>
+                    <p><strong>Barangay Hall:</strong> Tayhawan, Lezo, Aklan</p>
+                    <p><strong>Phone:</strong> (Insert Phone Number)</p>
+                    <p><strong>Email:</strong> info@tayhawan.gov.ph</p>
+                    <hr>
+                    <p><small>Office Hours: Monday - Friday | 8:00 AM - 5:00 PM</small></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
